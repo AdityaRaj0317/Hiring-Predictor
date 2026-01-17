@@ -8,15 +8,17 @@ import Dashboard from "@/pages/dashboard";
 import JobDetails from "@/pages/job-details";
 import Profile from "@/pages/profile";
 import Jobs from "@/pages/jobs";
+import LandingPage from "@/pages/landing";
 
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={Dashboard} />
+      <Route path="/" component={LandingPage} />
+      <Route path="/dashboard" component={Dashboard} />
       <Route path="/jobs" component={Jobs} />
       <Route path="/jobs/:id" component={JobDetails} />
       <Route path="/profile" component={Profile} />
-      <Route path="/applications" component={Dashboard} /> {/* Reuse dashboard for demo */}
+      <Route path="/applications" component={Dashboard} /> 
       <Route component={NotFound} />
     </Switch>
   );

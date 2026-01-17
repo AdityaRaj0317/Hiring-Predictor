@@ -1,12 +1,12 @@
 import { Link, useLocation } from "wouter";
-import { LayoutDashboard, Briefcase, User, Search, Settings, LogOut } from "lucide-react";
+import { LayoutDashboard, Briefcase, User, Search, Settings, LogOut, Home } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
 
   const navItems = [
-    { icon: LayoutDashboard, label: "Dashboard", href: "/" },
+    { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
     { icon: Search, label: "Find Jobs", href: "/jobs" },
     { icon: Briefcase, label: "My Applications", href: "/applications" },
     { icon: User, label: "Profile", href: "/profile" },
@@ -17,17 +17,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Sidebar */}
       <aside className="w-64 border-r border-border/40 bg-card/50 backdrop-blur-xl hidden md:flex flex-col">
         <div className="p-6">
-          <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold font-display text-lg">H</span>
+          <Link href="/">
+            <div className="flex items-center gap-2 cursor-pointer">
+              <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
+                <span className="text-primary-foreground font-bold font-display text-lg">H</span>
+              </div>
+              <span className="font-display font-bold text-xl tracking-tight text-foreground">HireCast</span>
             </div>
-            <span className="font-display font-bold text-xl tracking-tight text-foreground">HireCast</span>
-          </div>
+          </Link>
         </div>
 
         <nav className="flex-1 px-4 py-4 space-y-1">
           {navItems.map((item) => {
-            const isActive = location === item.href;
+            const isActive = location === item.href || (location === '/' && item.href === '/dashboard');
             return (
               <Link key={item.href} href={item.href}>
                 <a className={cn(
