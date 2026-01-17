@@ -57,21 +57,23 @@ export default function LandingPage() {
             className="max-w-4xl"
           >
             <h1 className="text-5xl md:text-7xl font-display font-bold text-foreground leading-[1.05] mb-8 tracking-tight">
-              A calmer way to navigate <br />
-              <span className="text-muted-foreground/60">the modern job market.</span>
+              Know your chances <br />
+              <span className="text-muted-foreground/60">before you hit apply.</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-2xl leading-relaxed">
-              HirePulse provides students and professionals with predictive hiring intelligence, moving beyond the uncertainty of standard applications.
+              HirePulse uses real-time hiring trends and peer data to help students, freshers, and job-seekers understand exactly where they stand in the applicant pool.
             </p>
             <div className="flex flex-col sm:flex-row gap-5">
               <Link href="/dashboard">
                 <Button size="lg" className="h-14 px-10 text-lg bg-primary text-primary-foreground shadow-xl shadow-primary/10 hover:shadow-primary/20 transition-all group rounded-full">
-                  Enter Platform <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  Analyze My Chances <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
-              <Button size="lg" variant="outline" className="h-14 px-10 text-lg rounded-full">
-                Learn our methodology
-              </Button>
+              <a href="#how-it-works">
+                <Button size="lg" variant="outline" className="h-14 px-10 text-lg rounded-full">
+                  How it works
+                </Button>
+              </a>
             </div>
           </motion.div>
         </div>
@@ -83,39 +85,64 @@ export default function LandingPage() {
       {/* The Problem */}
       <section id="problem" className="py-24 bg-card/10">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div>
-              <h2 className="text-3xl md:text-5xl font-display font-bold mb-8 leading-tight">The application black hole is real.</h2>
-              <div className="space-y-8">
-                <div className="flex gap-5">
-                  <div className="h-10 w-10 rounded-full bg-rose-500/10 flex items-center justify-center flex-shrink-0">
-                    <AlertCircle className="h-5 w-5 text-rose-500" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-lg mb-2">Asymmetric Information</h4>
-                    <p className="text-muted-foreground leading-relaxed">Companies know who they're looking for, but you're left guessing if your profile even makes it past the first filter.</p>
-                  </div>
-                </div>
-                <div className="flex gap-5">
-                  <div className="h-10 w-10 rounded-full bg-rose-500/10 flex items-center justify-center flex-shrink-0">
-                    <AlertCircle className="h-5 w-5 text-rose-500" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-lg mb-2">Silent Freezes</h4>
-                    <p className="text-muted-foreground leading-relaxed">Job boards often list roles that have already been frozen or filled internally, wasting your time and energy.</p>
-                  </div>
-                </div>
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-5xl font-display font-bold mb-6">The hidden reality of job hunting.</h2>
+            <p className="text-xl text-muted-foreground">Most applications fail because candidates are operating in the dark. We're here to turn the lights on.</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {/* Students & Freshers */}
+            <div className="bg-background border border-border/60 p-8 rounded-3xl shadow-sm">
+              <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-6">
+                <GraduationCap className="h-6 w-6" />
               </div>
+              <h3 className="text-2xl font-bold mb-6">For Students & Freshers</h3>
+              <ul className="space-y-6">
+                <li className="flex gap-4">
+                  <AlertCircle className="h-5 w-5 text-rose-500 flex-shrink-0 mt-1" />
+                  <div>
+                    <p className="font-semibold">Blind Applications</p>
+                    <p className="text-muted-foreground text-sm mt-1">Applying to dozens of internships without knowing if your profile matches what successful candidates have.</p>
+                  </div>
+                </li>
+                <li className="flex gap-4">
+                  <AlertCircle className="h-5 w-5 text-rose-500 flex-shrink-0 mt-1" />
+                  <div>
+                    <p className="font-semibold">The Feedback Void</p>
+                    <p className="text-muted-foreground text-sm mt-1">Receiving automated rejections months later with zero insight into why you weren't shortlisted.</p>
+                  </div>
+                </li>
+              </ul>
             </div>
-            <div className="bg-background border border-border/60 p-10 rounded-3xl shadow-sm">
-                <div className="space-y-6">
-                    <p className="text-lg text-muted-foreground italic leading-relaxed">
-                        "Applying today feels like sending letters into a void. You spend hours on a cover letter for a role that was closed three days ago, without even knowing it."
-                    </p>
-                    <div className="h-px bg-border/40" />
-                    <p className="font-medium text-sm uppercase tracking-widest text-muted-foreground">The Current State of Hiring</p>
-                </div>
+
+            {/* General Job Seekers */}
+            <div className="bg-background border border-border/60 p-8 rounded-3xl shadow-sm">
+              <div className="h-12 w-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-500 mb-6">
+                <Briefcase className="h-6 w-6" />
+              </div>
+              <h3 className="text-2xl font-bold mb-6">For Experienced Seekers</h3>
+              <ul className="space-y-6">
+                <li className="flex gap-4">
+                  <AlertCircle className="h-5 w-5 text-rose-500 flex-shrink-0 mt-1" />
+                  <div>
+                    <p className="font-semibold">Wasted Effort on Ghost Jobs</p>
+                    <p className="text-muted-foreground text-sm mt-1">Investing hours in applications for companies that have quietly frozen hiring or already filled the role.</p>
+                  </div>
+                </li>
+                <li className="flex gap-4">
+                  <AlertCircle className="h-5 w-5 text-rose-500 flex-shrink-0 mt-1" />
+                  <div>
+                    <p className="font-semibold">No Peer Comparison</p>
+                    <p className="text-muted-foreground text-sm mt-1">Not knowing how your skills and salary expectations stack up against the actual applicant pool.</p>
+                  </div>
+                </li>
+              </ul>
             </div>
+          </div>
+
+          <div className="mt-16 text-center max-w-2xl mx-auto p-8 rounded-3xl bg-primary text-primary-foreground shadow-2xl shadow-primary/20">
+            <h4 className="text-2xl font-bold mb-4">HirePulse replaces uncertainty with intelligence.</h4>
+            <p className="opacity-90">By surfacing hiring trends and peer clusters, we give you the data needed to apply where you actually have a shot at winning.</p>
           </div>
         </div>
       </section>
