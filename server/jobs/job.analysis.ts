@@ -14,6 +14,33 @@ interface AnalyzeJobInput {
   roleLevel?: "Intern" | "Junior" | "Mid" | "Senior";
 }
 
+function getRoleTimingPenalty(
+  roleLevel: "Intern" | "Junior" | "Mid" | "Senior",
+  daysSincePosted: number
+): { penalty: number; note: string } {
+  const roleWindows = {
+    Intern: 2,
+    Junior: 5,
+    Mid: 10,
+    Senior: 15,
+  };
+
+  const window = roleWindows[roleLevel];
+
+  if (daysSincePosted <= window) {
+    return {
+      penalty: 0,
+      note: `Timing is ideal for ${roleLevel} role.`,
+    };
+  }
+
+  return {
+    penalty: 15,
+    note: `This role is past the ideal apply window for ${roleLevel} positions.`,
+  };
+}
+
+
 /**
  * Rule-based analysis (v1)
  * No ML yet — deterministic, explainable, safe
@@ -21,10 +48,16 @@ interface AnalyzeJobInput {
 export function analyzeJob(input: AnalyzeJobInput): JobAnalysisResult {
   const days = input.daysSincePosted;
   const applicants = input.applicants ?? 0;
+  const roleLevel = input.roleLevel ?? "Mid";
 
+  
+  
   let probability = 0;
   let applySignal: ApplySignal = "WAIT";
   let reasoning = "";
+  const timingResult = getRoleTimingPenalty(roleLevel, days);
+  probability -= timingResult.penalty;
+  reasoning += timingResult.note + " ";
 
   // --- Time-based logic ---
   if (days <= 3) {

@@ -36,12 +36,22 @@ function getApplySignalUI(signal?: string) {
 /* ---------------- JOB CARD ---------------- */
 
 export default function JobCard({ job }: JobCardProps) {
+  // ✅ SAFELY read analysis
+  const analysis = job.analysis ?? null;
+
+  const applySignalUI = getApplySignalUI(
+    analysis?.applySignal ?? job.applySignal
+  );
+
+  const probability =
+    analysis?.probability ?? job.probability ?? null;
+
   const getProbabilityColor = (prob: number) => {
     if (prob >= 75)
-      return "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/20";
+      return "bg-emerald-500/15 text-emerald-600 border-emerald-500/20";
     if (prob >= 50)
-      return "bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/20";
-    return "bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/20";
+      return "bg-amber-500/15 text-amber-600 border-amber-500/20";
+    return "bg-rose-500/15 text-rose-600 border-rose-500/20";
   };
 
   const getSignalIcon = (signal: string) => {
@@ -52,35 +62,28 @@ export default function JobCard({ job }: JobCardProps) {
     return <Minus className="h-3 w-3 text-muted-foreground" />;
   };
 
-  const applySignal = getApplySignalUI(job.applySignal);
-
   return (
     <Card className="group hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 border-border/60 bg-card/50 backdrop-blur-sm overflow-hidden relative">
-      <div
-        className={cn(
-          "absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-primary/5 to-transparent rounded-bl-full -mr-4 -mt-4 transition-all group-hover:scale-110 duration-500"
-        )}
-      />
+      {/* Background accent */}
+      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-primary/5 to-transparent rounded-bl-full -mr-4 -mt-4" />
 
       <CardHeader className="p-5 pb-2 space-y-2">
-        {/* Apply signal badge */}
-        {applySignal && (
+        {/* Apply Signal Badge */}
+        {applySignalUI && (
           <Badge
             variant="outline"
-            className={cn(
-              "w-fit text-xs font-medium",
-              applySignal.className
-            )}
+            className={cn("w-fit text-xs font-medium", applySignalUI.className)}
           >
-            {applySignal.text}
+            {applySignalUI.text}
           </Badge>
         )}
 
         <div className="flex justify-between items-start">
           <div className="flex gap-3">
             <div className="h-10 w-10 rounded-lg bg-accent flex items-center justify-center font-bold text-sm border border-border">
-              {job.logo ?? job.company?.[0]}
+              {job.logo ?? job.company?.[0] ?? "J"}
             </div>
+
             <div>
               <h3 className="font-display font-semibold text-lg leading-none mb-1 group-hover:text-primary transition-colors">
                 {job.title}
@@ -89,15 +92,16 @@ export default function JobCard({ job }: JobCardProps) {
             </div>
           </div>
 
-          {job.probability && (
+          {/* Probability */}
+          {typeof probability === "number" && (
             <Badge
               variant="outline"
               className={cn(
                 "ml-auto font-mono",
-                getProbabilityColor(job.probability)
+                getProbabilityColor(probability)
               )}
             >
-              {job.probability}% Chance
+              {probability}% Chance
             </Badge>
           )}
         </div>
